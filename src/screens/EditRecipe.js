@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert, SafeAreaView } from 'react-native';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -44,6 +44,7 @@ const EditRecipeScreen = () => {
 
       <TextInput
         placeholder="Nombre de la receta"
+        placeholderTextColor="#888"
         value={nombre}
         onChangeText={setNombre}
         style={styles.input}
@@ -51,6 +52,7 @@ const EditRecipeScreen = () => {
 
       <TextInput
         placeholder="Descripción"
+        placeholderTextColor="#888"
         value={descripcion}
         onChangeText={setDescripcion}
         style={styles.input}
@@ -58,6 +60,7 @@ const EditRecipeScreen = () => {
 
       <TextInput
         placeholder="Ingredientes (separados por coma)"
+        placeholderTextColor="#888"
         value={ingredientes}
         onChangeText={setIngredientes}
         style={styles.input}
@@ -66,6 +69,7 @@ const EditRecipeScreen = () => {
 
       <TextInput
         placeholder="Pasos"
+        placeholderTextColor="#888"
         value={pasos}
         onChangeText={setPasos}
         style={styles.input}
@@ -74,6 +78,7 @@ const EditRecipeScreen = () => {
 
       <TextInput
         placeholder="URL de imagen (opcional)"
+        placeholderTextColor="#888"
         value={imagenURL}
         onChangeText={setImagenURL}
         style={styles.input}
@@ -92,28 +97,30 @@ export default EditRecipeScreen;
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: '#FFF8F0',
     flexGrow: 1,
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
     marginBottom: 20,
     color: '#333',
   },
   input: {
-    backgroundColor: '#f0f0f0',
-    padding: 12,
-    borderRadius: 8,
-    marginBottom: 15,
+    backgroundColor: '#FFEFD5',
+    padding: 14,
+    borderRadius: 14,
+    marginBottom: 16,
     fontSize: 16,
+    color: '#333',
   },
   button: {
-    backgroundColor: '#0782F9',
+    backgroundColor: '#fa906a',
     padding: 15,
-    borderRadius: 10,
+    borderRadius: 14,
     alignItems: 'center',
     marginTop: 10,
+    elevation: 2,
   },
   buttonText: {
     color: '#fff',
@@ -121,3 +128,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+

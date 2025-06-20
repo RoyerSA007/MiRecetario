@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Alert, SafeAreaView } from 'react-native';
 import { collection, query, where, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import { db, auth } from '../../firebase';
 import { useIsFocused } from '@react-navigation/native';
@@ -60,12 +60,14 @@ const MyRecipeScreen = () => {
     <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('DetailRecipe', { receta: item })}>
       <Text style={styles.title}>{item.nombre}</Text>
       <Text style={styles.descripcion}>{item.descripcion}</Text>
-      <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate('EditRecipe', { receta: item })} >
-        <Text style={styles.editText}>Editar</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.deleteButton} onPress={() => eliminarReceta(item.id)}>
-        <Text style={styles.deleteText}>Eliminar</Text>
-      </TouchableOpacity>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <TouchableOpacity style={[styles.editButton, { flex: 1, marginRight: 5 }]} onPress={() => navigation.navigate('EditRecipe', { receta: item })}>
+          <Text style={styles.editText}>Editar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.deleteButton, { flex: 1, marginLeft: 5 }]} onPress={() => eliminarReceta(item.id)}>
+          <Text style={styles.deleteText}>Eliminar</Text>
+        </TouchableOpacity>
+      </View>
     </TouchableOpacity>
   );
 
@@ -88,10 +90,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: '#FFF8F0',
   },
   header: {
-    fontSize: 22,
+    fontSize: 26,
     fontWeight: 'bold',
     marginBottom: 20,
     color: '#333',
@@ -100,48 +102,58 @@ const styles = StyleSheet.create({
     paddingBottom: 100,
   },
   card: {
-    backgroundColor: '#f9f9f9',
-    borderRadius: 10,
-    padding: 15,
-    marginBottom: 15,
-    elevation: 2,
+    backgroundColor: '#FFEFD5',
+    borderRadius: 16,
+    padding: 16,
+    marginBottom: 16,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#444',
+    color: '#333',
   },
   descripcion: {
-    fontSize: 14,
-    color: '#666',
-    marginVertical: 5,
+    fontSize: 15,
+    color: '#555',
+    marginTop: 4,
+    marginBottom: 10,
   },
   deleteButton: {
-    backgroundColor: '#ff5c5c',
-    paddingVertical: 8,
-    borderRadius: 8,
+    backgroundColor: '#ff713d',
+    paddingVertical: 10,
+    borderRadius: 14,
     marginTop: 10,
     alignItems: 'center',
+    elevation: 2,
   },
   deleteText: {
     color: '#fff',
     fontWeight: 'bold',
+    fontSize: 15,
+  },
+  editButton: {
+    backgroundColor: '#4CAF50',
+    paddingVertical: 10,
+    borderRadius: 14,
+    marginTop: 10,
+    alignItems: 'center',
+    elevation: 2,
+  },
+  editText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 15,
   },
   emptyText: {
     fontSize: 16,
-    color: '#666',
+    color: '#555',
     textAlign: 'center',
     marginTop: 50,
   },
-  editButton: {
-  backgroundColor: '#4CAF50',
-  paddingVertical: 8,
-  borderRadius: 8,
-  marginTop: 10,
-  alignItems: 'center',
-},
-editText: {
-  color: '#fff',
-  fontWeight: 'bold',
-},
 });
+

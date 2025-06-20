@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert, SafeAreaView } from 'react-native';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { db, auth } from '../../firebase';
 import { useNavigation } from '@react-navigation/native';
@@ -38,80 +38,95 @@ const NewRecipeScreen = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Agregar Nueva Receta</Text>
+    <SafeAreaView style={styles.safeArea}>
+      <View>
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={styles.title}>Agregar Nueva Receta</Text>
 
-      <TextInput
-        placeholder="Nombre de la receta"
-        value={nombre}
-        onChangeText={setNombre}
-        style={styles.input}
-      />
+        <TextInput
+          placeholder="Nombre de la receta"
+          value={nombre}
+          onChangeText={setNombre}
+          style={styles.input}
+        />
 
-      <TextInput
-        placeholder="Descripción breve"
-        value={descripcion}
-        onChangeText={setDescripcion}
-        style={styles.input}
-      />
+        <TextInput
+          placeholder="Descripción breve"
+          value={descripcion}
+          onChangeText={setDescripcion}
+          style={styles.input}
+        />
 
-      <TextInput
-        placeholder="Ingredientes (separados por coma)"
-        value={ingredientes}
-        onChangeText={setIngredientes}
-        style={styles.input}
-        multiline
-      />
+        <TextInput
+          placeholder="Ingredientes (separados por coma)"
+          value={ingredientes}
+          onChangeText={setIngredientes}
+          style={styles.input}
+          multiline
+        />
 
-      <TextInput
-        placeholder="Pasos de preparación"
-        value={pasos}
-        onChangeText={setPasos}
-        style={styles.input}
-        multiline
-      />
+        <TextInput
+          placeholder="Pasos de preparación"
+          value={pasos}
+          onChangeText={setPasos}
+          style={styles.input}
+          multiline
+        />
 
-      <TextInput
-        placeholder="URL de imagen (opcional)"
-        value={imagenURL}
-        onChangeText={setImagenURL}
-        style={styles.input}
-      />
+        <TextInput
+          placeholder="URL de imagen (opcional)"
+          value={imagenURL}
+          onChangeText={setImagenURL}
+          style={styles.input}
+        />
 
-      <TouchableOpacity style={styles.button} onPress={handleGuardarReceta}>
-        <Text style={styles.buttonText}>Guardar Receta</Text>
-      </TouchableOpacity>
-    </ScrollView>
+        <TouchableOpacity style={styles.button} onPress={handleGuardarReceta}>
+          <Text style={styles.buttonText}>Guardar Receta</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </View>
+    </SafeAreaView>
   );
 };
 
 export default NewRecipeScreen;
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#FFF8F0',
+  },
   container: {
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: '#FFF8F0',
     flexGrow: 1,
+    paddingBottom: 45,
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
     marginBottom: 20,
     color: '#333',
   },
   input: {
-    backgroundColor: '#f0f0f0',
-    padding: 12,
-    borderRadius: 8,
+    backgroundColor: '#fff',
+    padding: 14,
+    borderRadius: 14,
     marginBottom: 15,
     fontSize: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
   },
   button: {
-    backgroundColor: '#0782F9',
+    backgroundColor: '#FF7F50',
     padding: 15,
-    borderRadius: 10,
+    borderRadius: 16,
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 20,
+    elevation: 3,
   },
   buttonText: {
     color: '#fff',
@@ -119,3 +134,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+

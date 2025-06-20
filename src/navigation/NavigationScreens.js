@@ -12,6 +12,7 @@ import FavoriteScreen from "../screens/FavoriteScreen";
 const Stack = createNativeStackNavigator();
 
 export default function NavigationScreens() {
+    
     return(
         <Stack.Navigator initialRouteName="Login">
             <Stack.Screen name="Login" component={LoginScreen}/>

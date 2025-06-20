@@ -1,8 +1,9 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useEffect, useState } from "react";
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View  } from "react-native";
+import { KeyboardAvoidingView, StyleSheet, Text, Image, TextInput, TouchableOpacity, View  } from "react-native";
 import { auth } from "../../firebase";
 import { useNavigation } from "@react-navigation/native";
+import cuenta from "../imgs/cuenta.png"
 
 const LoginScreen = () => {
 const [email, setEmail] = useState('');
@@ -30,11 +31,17 @@ const [password, setPassword] = useState('');
 
     return(
         <KeyboardAvoidingView style={styles.container}>
+            <Image
+                source={require('../imgs/cuenta.png')}
+                style={styles.icon}/>
+
             <View style={styles.inputContainer}>
                 <TextInput placeholder="Email" 
+                placeholderTextColor="#888"
                 value={email} onChangeText={Text => setEmail(Text)} 
                 style={styles.input}/>
                 <TextInput placeholder="Password" 
+                placeholderTextColor="#888"
                 value={password} onChangeText={Text => setPassword(Text)}
                 style={styles.input} secureTextEntry/>
             </View>
@@ -53,49 +60,59 @@ const [password, setPassword] = useState('');
 export default LoginScreen
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1, 
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 40,
-    },
-    inputContainer: {
-        width: '80%',
-    },
-    input:{
-        backgroundColor: 'white',
-        paddingHorizontal: 15,
-        paddingVertical: 10,
-        borderRadius: 10,
-        marginTop: 5,
-    },
-    buttonContainer: {
-        width: '60%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 40,
-    },
-    button: {
-        backgroundColor: '#0782F9',
-        width: '100%',
-        padding: 15,
-        borderRadius: 10,
-        alignItems: 'center',
-    },
-    buttonOutLine: {
-        backgroundColor: 'white',
-        marginTop: 5,
-        borderColor: '#0782F9',
-        borderWidth: 2,
-    },
-    buttonText: {
-        color: 'white',
-        fontWeight: '700',
-        fontSize: 16,
-    },
-    buttonOutLineText: {
-        color: '#0782F9',
-        fontWeight: '700',
-        fontSize: 16,
-    },
-})
+  container: {
+    flex: 1, 
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFF8F0',
+    padding: 20,
+  },
+  inputContainer: {
+    width: '100%',
+  },
+  input: {
+    backgroundColor: '#FFEFD5',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 14,
+    marginTop: 10,
+    fontSize: 16,
+    color: '#333',
+  },
+  buttonContainer: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 30,
+  },
+  button: {
+    backgroundColor: '#FF7F50',
+    width: '100%',
+    padding: 15,
+    borderRadius: 14,
+    alignItems: 'center',
+    elevation: 2,
+  },
+  buttonOutLine: {
+    backgroundColor: '#FFF8F0',
+    marginTop: 10,
+    borderColor: '#FF7F50',
+    borderWidth: 2,
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  buttonOutLineText: {
+    color: '#FF7F50',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+    icon: {
+    width: 100,
+    height: 100,
+    marginBottom: 20,
+    borderRadius: 20,
+  },
+});
