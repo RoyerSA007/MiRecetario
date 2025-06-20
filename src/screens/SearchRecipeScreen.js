@@ -5,8 +5,6 @@ import { Picker } from '@react-native-picker/picker';
 import { db } from '../../firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 
-
-
 const SearchRecipeScreen = () => {
   const navigation = useNavigation();
 
@@ -36,40 +34,40 @@ const SearchRecipeScreen = () => {
   }, []);
 
   //nombre
- const buscarRecetas = async () => {
-  if (!busqueda.trim()) return;
-  setLoading(true);
-  setRecetas([]);
+  const buscarRecetas = async () => {
+    if (!busqueda.trim()) return;
+      setLoading(true);
+      setRecetas([]);
 
-  try {
-    const res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${busqueda}`);
-    const data = await res.json();
-    const recetasAPI = data.meals || [];
+    try {
+      const res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${busqueda}`);
+      const data = await res.json();
+      const recetasAPI = data.meals || [];
 
-    const recetasFirebase = [];
-    const recetasRef = collection(db, 'misRecetas');
+      const recetasFirebase = [];
+      const recetasRef = collection(db, 'misRecetas');
 
-    const q = query(recetasRef, where('nombre', '>=', busqueda), where('nombre', '<=', busqueda + '\uf8ff'));
-    const querySnapshot = await getDocs(q);
-        
-    querySnapshot.forEach(doc => {
-      const data = doc.data();
-      recetasFirebase.push({ id: doc.id, ...data, source: 'firebase' });
-    });
+      const q = query(recetasRef, where('nombre', '>=', busqueda), where('nombre', '<=', busqueda + '\uf8ff'));
+      const querySnapshot = await getDocs(q);
+          
+      querySnapshot.forEach(doc => {
+        const data = doc.data();
+        recetasFirebase.push({ id: doc.id, ...data, source: 'firebase' });
+      });
 
-    const recetasCombinadas = [
-      ...recetasAPI.map(item => ({ ...item, source: 'api' })), 
-      ...recetasFirebase
-    ];
+      const recetasCombinadas = [
+        ...recetasAPI.map(item => ({ ...item, source: 'api' })), 
+        ...recetasFirebase
+      ];
 
-    setRecetas(recetasCombinadas);
+      setRecetas(recetasCombinadas);
 
-  } catch (error) {
-    console.error('Error al buscar recetas:', error);
-  }
+    } catch (error) {
+      console.error('Error al buscar recetas:', error);
+    }
 
-  setLoading(false);
-};
+    setLoading(false);
+  };
 
 
   //filtro
@@ -114,61 +112,47 @@ const SearchRecipeScreen = () => {
         keyExtractor={(item, index) => item.idMeal || item.id || index.toString()}
         renderItem={renderItem}
         ListHeaderComponent={
-            <>
-            <Text style={styles.titulo}>Buscar Recetas</Text>
+          <>
+          <Text style={styles.titulo}>Buscar Recetas</Text>
 
-            <TextInput
-                placeholder="Buscar por nombre..."
-                value={busqueda}
-                onChangeText={setBusqueda}
-                style={styles.input}
-                onSubmitEditing={buscarRecetas}
-            />
+          <TextInput placeholder="Buscar por nombre..." value={busqueda}
+              onChangeText={setBusqueda} style={styles.input} onSubmitEditing={buscarRecetas}
+          />
 
-            <TouchableOpacity style={styles.button} onPress={buscarRecetas}>
-                <Text style={styles.buttonText}>Buscar</Text>
-            </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={buscarRecetas}>
+              <Text style={styles.buttonText}>Buscar</Text>
+          </TouchableOpacity>
 
-            <Text style={styles.subtitulo}>Filtrar por categoría</Text>
-            <Picker
-                selectedValue={categoriaSeleccionada}
-                onValueChange={(value) => {
-                setCategoriaSeleccionada(value);
-                setAreaSeleccionada('');
-                }}
-            >
-                <Picker.Item label="-- Seleccionar categoría --" value="" />
+          <Text style={styles.subtitulo}>Filtrar por categoría</Text>
+          <Picker selectedValue={categoriaSeleccionada} onValueChange={(value) => {
+              setCategoriaSeleccionada(value); setAreaSeleccionada('');}}>
+
+              <Picker.Item label="-- Seleccionar categoría --" value="" />
                 {categorias.map((cat, i) => (
-                <Picker.Item key={i} label={cat.strCategory} value={cat.strCategory} />
-                ))}
-            </Picker>
+              <Picker.Item key={i} label={cat.strCategory} value={cat.strCategory} />
+              ))}
+          </Picker>
 
-            <Text style={styles.subtitulo}>Filtrar por país</Text>
-            <Picker
-                selectedValue={areaSeleccionada}
-                onValueChange={(value) => {
-                setAreaSeleccionada(value);
-                setCategoriaSeleccionada('');
-                }}
-            >
-                <Picker.Item label="-- Seleccionar país --" value="" />
+          <Text style={styles.subtitulo}>Filtrar por país</Text>
+          <Picker selectedValue={areaSeleccionada} onValueChange={(value) => {
+              setAreaSeleccionada(value); setCategoriaSeleccionada('');}} >
+              <Picker.Item label="-- Seleccionar país --" value="" />
                 {areas.map((area, i) => (
-                <Picker.Item key={i} label={area.strArea} value={area.strArea} />
-                ))}
-            </Picker>
+              <Picker.Item key={i} label={area.strArea} value={area.strArea} />
+              ))}
+          </Picker>
 
-            <TouchableOpacity style={styles.buttonSecondary} onPress={buscarPorFiltro}>
-                <Text style={styles.buttonText}>Aplicar Filtro</Text>
-            </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonSecondary} onPress={buscarPorFiltro}>
+              <Text style={styles.buttonText}>Aplicar Filtro</Text>
+          </TouchableOpacity>
 
-            {loading && <ActivityIndicator size="large" color="#0782F9" style={{ marginTop: 20 }} />}
-            </>
-        } />
+          {loading && <ActivityIndicator size="large" color="#0782F9" style={{ marginTop: 20 }} />}
+          </>
+      }/>
   );
 };
 
 export default SearchRecipeScreen;
-
 
 const styles = StyleSheet.create({
   container: {

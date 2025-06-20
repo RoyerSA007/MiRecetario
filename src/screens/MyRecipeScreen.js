@@ -6,10 +6,9 @@ import { useIsFocused } from '@react-navigation/native';
 import { useNavigation } from "@react-navigation/native";
 
 const MyRecipeScreen = () => {
+  const navigation = useNavigation();
   const [recetas, setRecetas] = useState([]);
   const isFocused = useIsFocused();
-  const navigation = useNavigation();
-  
 
   const cargarRecetas = async () => {
     try {
@@ -30,26 +29,22 @@ const MyRecipeScreen = () => {
 
   const eliminarReceta = (id) => {
     Alert.alert(
-      'Eliminar receta',
-      '¿Estás seguro de que quieres eliminar esta receta?',
+      'Eliminar receta', '¿Estás seguro de que quieres eliminar esta receta?',
       [
         { text: 'Cancelar', style: 'cancel' },
-        {
-          text: 'Eliminar',
-          onPress: async () => {
+        { text: 'Eliminar', onPress: 
+          async () => {
             try {
               await deleteDoc(doc(db, 'misRecetas', id));
-              cargarRecetas(); // recargar
+              cargarRecetas();
             } catch (error) {
               console.error('Error al eliminar:', error);
               Alert.alert('Error', 'No se pudo eliminar la receta');
-            }
-          },
+            }},
         },
-      ]
-    );
+      ]);
   };
-
+ 
   useEffect(() => {
     if (isFocused) {
       cargarRecetas();
@@ -57,14 +52,17 @@ const MyRecipeScreen = () => {
   }, [isFocused]);
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('DetailRecipe', { receta: item })}>
+    <TouchableOpacity style={styles.card} 
+      onPress={() => navigation.navigate('DetailRecipe', { receta: item })}>
       <Text style={styles.title}>{item.nombre}</Text>
       <Text style={styles.descripcion}>{item.descripcion}</Text>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        <TouchableOpacity style={[styles.editButton, { flex: 1, marginRight: 5 }]} onPress={() => navigation.navigate('EditRecipe', { receta: item })}>
+        <TouchableOpacity style={[styles.editButton, { flex: 1, marginRight: 5 }]} 
+          onPress={() => navigation.navigate('EditRecipe', { receta: item })}>
           <Text style={styles.editText}>Editar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.deleteButton, { flex: 1, marginLeft: 5 }]} onPress={() => eliminarReceta(item.id)}>
+        <TouchableOpacity style={[styles.deleteButton, { flex: 1, marginLeft: 5 }]} 
+          onPress={() => eliminarReceta(item.id)}>
           <Text style={styles.deleteText}>Eliminar</Text>
         </TouchableOpacity>
       </View>

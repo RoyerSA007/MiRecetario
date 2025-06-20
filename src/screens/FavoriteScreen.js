@@ -9,11 +9,11 @@ const FavoritosScreen = () => {
   const navigation = useNavigation();
   const isFocused = useIsFocused();
 
-  const [favoritosIds, setFavoritosIds] = useState([]);      // Lista de documentos Firestore
-  const [recetas, setRecetas] = useState([]);                // Detalles completos desde API
+  const [favoritosIds, setFavoritosIds] = useState([]);
+  const [recetas, setRecetas] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 1️⃣ Carga lista de idMeals desde Firestore
+  // carga lista desde Firestore
   const cargarFavoritosIds = async () => {
     setLoading(true);
     try {
@@ -30,7 +30,6 @@ const FavoritosScreen = () => {
     }
   };
 
-  // 2️⃣ Para cada idMeal, fetch de detalles API
   const cargarDetalles = async () => {
     try {
       const detalles = await Promise.all(
@@ -52,14 +51,12 @@ const FavoritosScreen = () => {
     }
   };
 
-  // Efecto principal: recargar cuando enfoque vuelve
   useEffect(() => {
     if (isFocused) {
       cargarFavoritosIds();
     }
   }, [isFocused]);
 
-  // Cuando cambian los IDs, carga detalles
   useEffect(() => {
     if (favoritosIds.length > 0) {
       cargarDetalles();
@@ -69,11 +66,9 @@ const FavoritosScreen = () => {
     }
   }, [favoritosIds]);
 
-  // Botón para quitar de favoritos
   const quitarFavorito = async (docId) => {
     try {
       await deleteDoc(doc(db, 'favoritos', docId));
-      // refresca
       cargarFavoritosIds();
     } catch (e) {
       console.error('Error eliminando favorito', e);
@@ -82,8 +77,7 @@ const FavoritosScreen = () => {
   };
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity
-      style={styles.card}
+    <TouchableOpacity style={styles.card}
       onPress={() => navigation.navigate('DetailRecipe', { receta: item })}>
         
       <Image source={{ uri: item.strMealThumb }} style={styles.image} />

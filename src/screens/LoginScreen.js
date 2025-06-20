@@ -6,10 +6,10 @@ import { useNavigation } from "@react-navigation/native";
 import cuenta from "../imgs/cuenta.png"
 
 const LoginScreen = () => {
-const [email, setEmail] = useState('');
-const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-    const navigation = useNavigation();
+  const navigation = useNavigation();
 
     useEffect(() => {
         const unsuscribe = auth.onAuthStateChanged(user => {
@@ -31,20 +31,15 @@ const [password, setPassword] = useState('');
 
     return(
         <KeyboardAvoidingView style={styles.container}>
-            <Image
-                source={require('../imgs/cuenta.png')}
-                style={styles.icon}/>
+            <Image source={require('../imgs/cuenta.png')} style={styles.icon}/>
 
             <View style={styles.inputContainer}>
-                <TextInput placeholder="Email" 
-                placeholderTextColor="#888"
-                value={email} onChangeText={Text => setEmail(Text)} 
-                style={styles.input}/>
-                <TextInput placeholder="Password" 
-                placeholderTextColor="#888"
-                value={password} onChangeText={Text => setPassword(Text)}
-                style={styles.input} secureTextEntry/>
+                <TextInput placeholder="Email" placeholderTextColor="#888"
+                  value={email} onChangeText={Text => setEmail(Text)} style={styles.input}/>
+                <TextInput placeholder="Password" placeholderTextColor="#888"
+                  value={password} onChangeText={Text => setPassword(Text)}style={styles.input} secureTextEntry/>
             </View>
+
             <View style={styles.buttonContainer}>
                 <TouchableOpacity onPress={(handleLogin)} style={styles.button}>
                     <Text style={styles.buttonText}>Login</Text>

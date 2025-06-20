@@ -42,47 +42,21 @@ const EditRecipeScreen = () => {
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Editar Receta</Text>
 
-      <TextInput
-        placeholder="Nombre de la receta"
-        placeholderTextColor="#888"
-        value={nombre}
-        onChangeText={setNombre}
-        style={styles.input}
-      />
+      <TextInput placeholder="Nombre de la receta" placeholderTextColor="#888"
+        value={nombre} onChangeText={setNombre} style={styles.input}/>
 
-      <TextInput
-        placeholder="Descripción"
-        placeholderTextColor="#888"
-        value={descripcion}
-        onChangeText={setDescripcion}
-        style={styles.input}
-      />
+      <TextInput placeholder="Descripción" placeholderTextColor="#888"
+        value={descripcion} onChangeText={setDescripcion} style={styles.input} />
 
-      <TextInput
-        placeholder="Ingredientes (separados por coma)"
-        placeholderTextColor="#888"
-        value={ingredientes}
-        onChangeText={setIngredientes}
-        style={styles.input}
-        multiline
-      />
+      <TextInput placeholder="Ingredientes (separados por coma)"
+        placeholderTextColor="#888" value={ingredientes} onChangeText={setIngredientes}
+        style={styles.input} multiline/>
 
-      <TextInput
-        placeholder="Pasos"
-        placeholderTextColor="#888"
-        value={pasos}
-        onChangeText={setPasos}
-        style={styles.input}
-        multiline
-      />
+      <TextInput placeholder="Pasos" placeholderTextColor="#888" value={pasos}
+        onChangeText={setPasos} style={styles.input} multiline/>
 
-      <TextInput
-        placeholder="URL de imagen (opcional)"
-        placeholderTextColor="#888"
-        value={imagenURL}
-        onChangeText={setImagenURL}
-        style={styles.input}
-      />
+      <TextInput placeholder="URL de imagen (opcional)"placeholderTextColor="#888"
+        value={imagenURL} onChangeText={setImagenURL} style={styles.input}/>
 
       <TouchableOpacity style={styles.button} onPress={handleActualizar}>
         <Text style={styles.buttonText}>Guardar Cambios</Text>
@@ -92,7 +66,6 @@ const EditRecipeScreen = () => {
 };
 
 export default EditRecipeScreen;
-
 
 const styles = StyleSheet.create({
   container: {

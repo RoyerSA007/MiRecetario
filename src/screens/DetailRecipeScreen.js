@@ -24,9 +24,8 @@ const DetailRecipeScreen = () => {
   const nombre = receta.nombre || receta.strMeal;
   const imagen = receta.imagenURL || receta.strMealThumb;
   const pasos = receta.pasos || receta.strInstructions;
-  const ingredientes =
-    receta.ingredientes ||
-    Object.keys(receta)
+
+  const ingredientes = receta.ingredientes || Object.keys(receta)
       .filter((key) => key.startsWith('strIngredient') && receta[key])
       .map((key) => receta[key]);
 
@@ -44,8 +43,7 @@ const DetailRecipeScreen = () => {
           } catch (error) {
             console.error('Error al eliminar receta:', error);
             Alert.alert('Error', 'No se pudo eliminar la receta');
-          }
-        },
+          }},
       },
     ]);
   };
@@ -64,8 +62,7 @@ const DetailRecipeScreen = () => {
           setFavoritoId(querySnapshot.docs[0].id);
         } else {
           setEsFavorito(false);
-        }
-      }
+        }}
     };
     verificarFavorito();
   }, []);
@@ -125,10 +122,8 @@ const DetailRecipeScreen = () => {
 
         {esFirebase && (
           <View style={styles.buttonGroup}>
-            <TouchableOpacity
-              style={[styles.button, styles.editButton]}
-              onPress={() => navigation.navigate('EditRecipe', { receta })}
-            >
+            <TouchableOpacity style={[styles.button, styles.editButton]}
+              onPress={() => navigation.navigate('EditRecipe', { receta })}>
               <Text style={styles.buttonText}>Editar</Text>
             </TouchableOpacity>
 
@@ -140,16 +135,9 @@ const DetailRecipeScreen = () => {
 
         {receta.idMeal && (
           <View style={styles.favButtonContainer}>
-            <TouchableOpacity
-              style={[
-                styles.button,
-                {
-                  backgroundColor: esFavorito ? '#ff713d' : '#FF7F50',
-                  width: '80%',
-                },
-              ]}
-              onPress={toggleFavorito}
-            >
+            <TouchableOpacity style={[styles.button,
+                {backgroundColor: esFavorito ? '#ff713d' : '#FF7F50', width: '80%',},
+              ]} onPress={toggleFavorito}>
               <Text style={styles.buttonText}>
                 {esFavorito ? 'Quitar de Favoritos' : 'Agregar a Favoritos'}
               </Text>

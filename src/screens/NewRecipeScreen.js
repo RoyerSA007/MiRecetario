@@ -43,42 +43,20 @@ const NewRecipeScreen = () => {
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.title}>Agregar Nueva Receta</Text>
 
-        <TextInput
-          placeholder="Nombre de la receta"
-          value={nombre}
-          onChangeText={setNombre}
-          style={styles.input}
-        />
+        <TextInput placeholder="Nombre de la receta" value={nombre} 
+          onChangeText={setNombre} style={styles.input}/>
 
-        <TextInput
-          placeholder="Descripción breve"
-          value={descripcion}
-          onChangeText={setDescripcion}
-          style={styles.input}
-        />
+        <TextInput placeholder="Descripción breve" value={descripcion}
+          onChangeText={setDescripcion} style={styles.input}/>
 
-        <TextInput
-          placeholder="Ingredientes (separados por coma)"
-          value={ingredientes}
-          onChangeText={setIngredientes}
-          style={styles.input}
-          multiline
-        />
+        <TextInput placeholder="Ingredientes (separados por coma)" value={ingredientes}
+          onChangeText={setIngredientes} style={styles.input} multiline/>
 
-        <TextInput
-          placeholder="Pasos de preparación"
-          value={pasos}
-          onChangeText={setPasos}
-          style={styles.input}
-          multiline
-        />
+        <TextInput placeholder="Pasos de preparación" value={pasos}
+          onChangeText={setPasos} style={styles.input} multiline/>
 
-        <TextInput
-          placeholder="URL de imagen (opcional)"
-          value={imagenURL}
-          onChangeText={setImagenURL}
-          style={styles.input}
-        />
+        <TextInput placeholder="URL de imagen (opcional)" value={imagenURL}
+          onChangeText={setImagenURL} style={styles.input}/>
 
         <TouchableOpacity style={styles.button} onPress={handleGuardarReceta}>
           <Text style={styles.buttonText}>Guardar Receta</Text>

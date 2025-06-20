@@ -24,25 +24,23 @@ const RegisterScreen = () => {
           email: email
         });
 
-      console.log('Registered with:', user.email);
-    } catch (error) {
-        alert(error.message);
-    }
-};
+        console.log('Registered with:', user.email);
+      } catch (error) {
+          alert(error.message);
+      }
+    };
 
      return(
         <KeyboardAvoidingView style={styles.container}>
             <View style={styles.inputContainer}>
-                <TextInput placeholder="Email" 
-                value={email} onChangeText={Text => setEmail(Text)} 
-                style={styles.input}/>
-                <TextInput placeholder="Password" 
-                value={password} onChangeText={Text => setPassword(Text)}
-                style={styles.input} secureTextEntry/>
-                <TextInput placeholder="Nombre completo"
-                value={name} onChangeText={text => setName(text)}
-                style={styles.input}/>
+                <TextInput placeholder="Email" value={email} 
+                  onChangeText={Text => setEmail(Text)} style={styles.input}/>
+                <TextInput placeholder="Password" value={password} 
+                  onChangeText={Text => setPassword(Text)} style={styles.input} secureTextEntry/>
+                <TextInput placeholder="Nombre completo" value={name} 
+                  onChangeText={text => setName(text)} style={styles.input}/>
             </View>
+            
             <View style={styles.buttonContainer}>
                 <TouchableOpacity onPress={(handleSignUp)} style={[styles.button, styles.buttonOutLine]}>
                     <Text style={styles.buttonOutLineText}>Register</Text>

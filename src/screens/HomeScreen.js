@@ -7,7 +7,6 @@ import { db } from "../../firebase";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-  const [name, setName] = useState('');
   const [featuredRecipe, setFeaturedRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -18,14 +17,6 @@ const HomeScreen = () => {
         routes: [{ name: "Login" }],
       });
     }).catch(error => alert(error.message));
-  };
-
-  const fetchUserName = async () => {
-    const userRef = doc(db, "users", auth.currentUser.uid);
-    const docSnap = await getDoc(userRef);
-    if (docSnap.exists()) {
-      setName(docSnap.data().name);
-    }
   };
 
   const fetchFeaturedRecipe = async () => {
@@ -41,15 +32,14 @@ const HomeScreen = () => {
   };
 
   useEffect(() => {
-    fetchUserName();
     fetchFeaturedRecipe();
   }, []);
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.welcome}>Hola, {name || 'Chef'}</Text>
-        <Text style={styles.subtitle}>¡Listo para cocinar algo delicioso hoy?</Text>
+        <Text style={styles.welcome}>Hola, Chef</Text>
+        <Text style={styles.subtitle}>¡¿Listo para cocinar algo delicioso hoy?!</Text>
 
         <TouchableOpacity style={styles.searchButton} onPress={() => navigation.navigate("SearchRecipe")}>
           <Text style={styles.searchButtonText}>Buscar Recetas</Text>
